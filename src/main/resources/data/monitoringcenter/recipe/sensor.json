@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "IGI",
+    "RCR",
+    "IQI"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "Q": {
+      "tag": "c:gems/quartz"
+    }
+  },
+  "result": {
+    "id": "monitoringcenter:sensor",
+    "count": 2
+  }
+}

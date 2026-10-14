@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "monitoringcenter:block/kinetic_coupler"
+    },
+    "facing=south": {
+      "model": "monitoringcenter:block/kinetic_coupler",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "monitoringcenter:block/kinetic_coupler",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "monitoringcenter:block/kinetic_coupler",
+      "y": 90
+    },
+    "facing=up": {
+      "model": "monitoringcenter:block/kinetic_coupler",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "monitoringcenter:block/kinetic_coupler",
+      "x": 90
+    }
+  }
+}

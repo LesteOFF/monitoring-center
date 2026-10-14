@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "IEI",
+    "RBR",
+    "ICI"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "E": {
+      "tag": "c:ender_pearls"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    },
+    "B": {
+      "tag": "c:storage_blocks/redstone"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    }
+  },
+  "result": {
+    "id": "monitoringcenter:central",
+    "count": 1
+  }
+}

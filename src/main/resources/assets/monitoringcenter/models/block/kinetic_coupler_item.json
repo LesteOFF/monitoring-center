@@ -1,0 +1,222 @@
+{
+    "parent":  "minecraft:block/block",
+    "textures":  {
+                     "casing":  "create:block/andesite_casing",
+                     "gearbox":  "create:block/gearbox",
+                     "particle":  "create:block/andesite_casing",
+                     "shaft":  "create:block/axis",
+                     "shaft_end":  "create:block/axis_top"
+                 },
+    "elements":  [
+                     {
+                         "name":  "central_contact_plate",
+                         "from":  [
+                                      3,
+                                      3,
+                                      0
+                                  ],
+                         "to":  [
+                                    13,
+                                    13,
+                                    2
+                                ],
+                         "faces":  {
+                                       "north":  {
+                                                     "uv":  [
+                                                                0,
+                                                                0,
+                                                                16,
+                                                                16
+                                                            ],
+                                                     "texture":  "#casing"
+                                                 },
+                                       "south":  {
+                                                     "uv":  [
+                                                                0,
+                                                                0,
+                                                                16,
+                                                                16
+                                                            ],
+                                                     "texture":  "#casing"
+                                                 },
+                                       "east":  {
+                                                    "uv":  [
+                                                               0,
+                                                               0,
+                                                               2,
+                                                               16
+                                                           ],
+                                                    "texture":  "#casing"
+                                                },
+                                       "west":  {
+                                                    "uv":  [
+                                                               14,
+                                                               0,
+                                                               16,
+                                                               16
+                                                           ],
+                                                    "texture":  "#casing"
+                                                },
+                                       "up":  {
+                                                  "uv":  [
+                                                             0,
+                                                             0,
+                                                             16,
+                                                             2
+                                                         ],
+                                                  "texture":  "#casing"
+                                              },
+                                       "down":  {
+                                                    "uv":  [
+                                                               0,
+                                                               14,
+                                                               16,
+                                                               16
+                                                           ],
+                                                    "texture":  "#casing"
+                                                }
+                                   }
+                     },
+                     {
+                         "name":  "andesite_gearbox",
+                         "from":  [
+                                      2,
+                                      2,
+                                      2
+                                  ],
+                         "to":  [
+                                    14,
+                                    14,
+                                    12
+                                ],
+                         "faces":  {
+                                       "north":  {
+                                                     "uv":  [
+                                                                0,
+                                                                0,
+                                                                16,
+                                                                16
+                                                            ],
+                                                     "texture":  "#casing"
+                                                 },
+                                       "south":  {
+                                                     "uv":  [
+                                                                0,
+                                                                0,
+                                                                16,
+                                                                16
+                                                            ],
+                                                     "texture":  "#gearbox"
+                                                 },
+                                       "east":  {
+                                                    "uv":  [
+                                                               0,
+                                                               0,
+                                                               16,
+                                                               16
+                                                           ],
+                                                    "texture":  "#casing"
+                                                },
+                                       "west":  {
+                                                    "uv":  [
+                                                               0,
+                                                               0,
+                                                               16,
+                                                               16
+                                                           ],
+                                                    "texture":  "#casing"
+                                                },
+                                       "up":  {
+                                                  "uv":  [
+                                                             0,
+                                                             0,
+                                                             16,
+                                                             16
+                                                         ],
+                                                  "texture":  "#casing"
+                                              },
+                                       "down":  {
+                                                    "uv":  [
+                                                               0,
+                                                               0,
+                                                               16,
+                                                               16
+                                                           ],
+                                                    "texture":  "#casing"
+                                                }
+                                   }
+                     },
+                     {
+                         "name":  "shaft_input",
+                         "from":  [
+                                      6,
+                                      6,
+                                      12
+                                  ],
+                         "to":  [
+                                    10,
+                                    10,
+                                    16
+                                ],
+                         "faces":  {
+                                       "north":  {
+                                                     "uv":  [
+                                                                6,
+                                                                6,
+                                                                10,
+                                                                10
+                                                            ],
+                                                     "texture":  "#shaft_end"
+                                                 },
+                                       "south":  {
+                                                     "uv":  [
+                                                                6,
+                                                                6,
+                                                                10,
+                                                                10
+                                                            ],
+                                                     "texture":  "#shaft_end"
+                                                 },
+                                       "east":  {
+                                                    "uv":  [
+                                                               6,
+                                                               0,
+                                                               10,
+                                                               4
+                                                           ],
+                                                    "texture":  "#shaft",
+                                                    "rotation":  270
+                                                },
+                                       "west":  {
+                                                    "uv":  [
+                                                               6,
+                                                               0,
+                                                               10,
+                                                               4
+                                                           ],
+                                                    "texture":  "#shaft",
+                                                    "rotation":  90
+                                                },
+                                       "up":  {
+                                                  "uv":  [
+                                                             6,
+                                                             0,
+                                                             10,
+                                                             4
+                                                         ],
+                                                  "texture":  "#shaft",
+                                                  "rotation":  180
+                                              },
+                                       "down":  {
+                                                    "uv":  [
+                                                               6,
+                                                               0,
+                                                               10,
+                                                               4
+                                                           ],
+                                                    "texture":  "#shaft"
+                                                }
+                                   }
+                     }
+                 ]
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "monitoringcenter:block/central"
+    }
+  }
+}

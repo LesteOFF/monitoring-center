@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "GGG",
+    "ILI",
+    "IRI"
+  ],
+  "key": {
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "L": {
+      "tag": "c:dusts/glowstone"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "result": {
+    "id": "monitoringcenter:screen",
+    "count": 4
+  }
+}

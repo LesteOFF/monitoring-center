@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " I",
+    "RE"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "E": {
+      "tag": "c:ender_pearls"
+    }
+  },
+  "result": {
+    "id": "monitoringcenter:channel_key",
+    "count": 1
+  }
+}

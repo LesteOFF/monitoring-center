@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "monitoringcenter:sensor",
+    "monitoringcenter:central",
+    "monitoringcenter:screen",
+    {
+      "id": "monitoringcenter:kinetic_coupler",
+      "required": false
+    }
+  ]
+}
