@@ -91,9 +91,8 @@ Cliente: `performanceMode` (troca os gráficos de linha por barras e desliga o p
 ./gradlew runPackGameTestServer  # gametests com os mods do pack carregados
 ```
 
-`libs/` (fora do git) guarda os jars aninhados do Create usados só para compilar. Veja "Como reconstruir" em `PROGRESSO.md`.
+`libs/` (fora do git) guarda os jars aninhados do Create usados só para compilar. Para recriá-la: `unzip -o -j create-1.21.1-6.0.10.jar 'META-INF/jarjar/*.jar' -d libs`.
 
 ## Documentos
 
-- `PROGRESSO.md`: estado atual, decisões e o que falta conferir no jogo.
 - `CHANGELOG.md`: o que mudou em cada versão.
