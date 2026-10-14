@@ -8,3 +8,5 @@ runs/
 .vscode
 libs/
 run-pack/
+logs/
+output/
