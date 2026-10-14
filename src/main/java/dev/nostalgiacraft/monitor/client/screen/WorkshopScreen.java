@@ -19,11 +19,11 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
-abstract class WorkshopScreen extends Screen {
+public abstract class WorkshopScreen extends Screen {
     static final String PREFIX = "screen.monitoringcenter.";
-    static final int INK = 0xFFE6E6E6;
-    static final int MUTED = 0xFF9A9A9A;
-    static final int ACCENT = 0xFFFFB000;
+    protected static final int INK = 0xFFE6E6E6;
+    protected static final int MUTED = 0xFF9A9A9A;
+    protected static final int ACCENT = 0xFFFFB000;
     private static final int SEGMENT_GAP = 2;
     private static final int NARROWEST_SEGMENT = 40;
     private static final int ERROR = 0xFFFF6B5E;
@@ -45,7 +45,7 @@ abstract class WorkshopScreen extends Screen {
     private final List<EditBox> fields = new ArrayList<>();
     private final List<Paragraph> paragraphs = new ArrayList<>();
 
-    WorkshopScreen(Component title, Component subtitle) {
+    protected WorkshopScreen(Component title, Component subtitle) {
         super(title);
         this.subtitle = subtitle;
     }
