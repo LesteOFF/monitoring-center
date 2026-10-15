@@ -1,6 +1,8 @@
 package dev.nostalgiacraft.monitor.registry;
 
 import dev.nostalgiacraft.monitor.MonitoringCenter;
+import dev.nostalgiacraft.monitor.block.ActuatorBlock;
+import dev.nostalgiacraft.monitor.block.ActuatorBlockEntity;
 import dev.nostalgiacraft.monitor.block.CentralBlock;
 import dev.nostalgiacraft.monitor.block.CentralBlockEntity;
 import dev.nostalgiacraft.monitor.block.ScreenBlock;
@@ -32,6 +34,9 @@ public final class ModBlocks {
     public static final DeferredItem<BlockItem> CENTRAL_ITEM = ModItems.ITEMS.registerSimpleBlockItem(CENTRAL);
     public static final DeferredBlock<ScreenBlock> SCREEN = BLOCKS.registerBlock("screen", ScreenBlock::new, machine().noOcclusion());
     public static final DeferredItem<BlockItem> SCREEN_ITEM = ModItems.ITEMS.registerSimpleBlockItem(SCREEN);
+    public static final DeferredBlock<ActuatorBlock> ACTUATOR = BLOCKS.registerBlock("actuator", ActuatorBlock::new,
+            machine().lightLevel(state -> state.getValue(ActuatorBlock.POWERED) ? ActuatorBlock.LIGHT_WHEN_POWERED : 0));
+    public static final DeferredItem<BlockItem> ACTUATOR_ITEM = ModItems.ITEMS.registerSimpleBlockItem(ACTUATOR);
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SensorBlockEntity>> SENSOR_ENTITY = BLOCK_ENTITIES.register(
             "sensor", () -> BlockEntityType.Builder.of(SensorBlockEntity::new, SENSOR.get()).build(null));
@@ -41,6 +46,9 @@ public final class ModBlocks {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ScreenBlockEntity>> SCREEN_ENTITY = BLOCK_ENTITIES.register(
             "screen", () -> BlockEntityType.Builder.of(ScreenBlockEntity::new, SCREEN.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ActuatorBlockEntity>> ACTUATOR_ENTITY = BLOCK_ENTITIES.register(
+            "actuator", () -> BlockEntityType.Builder.of(ActuatorBlockEntity::new, ACTUATOR.get()).build(null));
 
     private ModBlocks() {
     }

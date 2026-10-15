@@ -4,6 +4,7 @@
     "monitoringcenter:sensor",
     "monitoringcenter:central",
     "monitoringcenter:screen",
+    "monitoringcenter:actuator",
     {
       "id": "monitoringcenter:kinetic_coupler",
       "required": false

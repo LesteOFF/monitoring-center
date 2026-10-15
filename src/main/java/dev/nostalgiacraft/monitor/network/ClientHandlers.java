@@ -3,6 +3,7 @@ package dev.nostalgiacraft.monitor.network;
 import dev.nostalgiacraft.monitor.block.ScreenBlockEntity;
 import dev.nostalgiacraft.monitor.block.SensorBlockEntity;
 import dev.nostalgiacraft.monitor.client.ClientChannels;
+import dev.nostalgiacraft.monitor.client.screen.ActuatorScreen;
 import dev.nostalgiacraft.monitor.client.screen.CentralScreen;
 import dev.nostalgiacraft.monitor.client.screen.PanelScreen;
 import dev.nostalgiacraft.monitor.client.screen.SensorScreen;
@@ -37,6 +38,10 @@ final class ClientHandlers {
 
     static void openCentral(Payloads.OpenCentral message) {
         Minecraft.getInstance().setScreen(new CentralScreen(message.pos(), message.key(), message.config()));
+    }
+
+    static void openActuator(Payloads.OpenActuator message) {
+        Minecraft.getInstance().setScreen(new ActuatorScreen(message.pos(), message.key(), message.settings(), message.rules()));
     }
 
     static void openSensor(Payloads.OpenSensor message) {

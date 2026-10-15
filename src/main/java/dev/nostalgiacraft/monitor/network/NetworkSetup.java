@@ -6,7 +6,7 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import java.util.UUID;
 
 public final class NetworkSetup {
-    public static final String VERSION = "2";
+    public static final String VERSION = "3";
 
     private NetworkSetup() {
     }
@@ -26,6 +26,10 @@ public final class NetworkSetup {
                 (message, context) -> ClientHandlers.closed(message));
         registrar.playToClient(Payloads.History.TYPE, Payloads.History.CODEC, (message, context) -> ClientHandlers.history(message));
         registrar.playToClient(Payloads.OpenCentral.TYPE, Payloads.OpenCentral.CODEC, (message, context) -> ClientHandlers.openCentral(message));
+        registrar.playToClient(Payloads.OpenActuator.TYPE, Payloads.OpenActuator.CODEC,
+                (message, context) -> ClientHandlers.openActuator(message));
+        registrar.playToServer(Payloads.ConfigureActuator.TYPE, Payloads.ConfigureActuator.CODEC,
+                ServerHandlers.limited(ServerHandlers::configureActuator));
         registrar.playToServer(Payloads.RequestHistory.TYPE, Payloads.RequestHistory.CODEC, ServerHandlers.limited(ServerHandlers::requestHistory));
         registrar.playToServer(Payloads.ConfigureCentral.TYPE, Payloads.ConfigureCentral.CODEC, ServerHandlers.limited(ServerHandlers::configureCentral));
         registrar.playToServer(Payloads.ConfigurePanel.TYPE, Payloads.ConfigurePanel.CODEC, ServerHandlers.limited(ServerHandlers::configurePanel));

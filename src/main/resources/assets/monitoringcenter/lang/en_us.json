@@ -232,5 +232,19 @@
     "metric.monitoringcenter.mek_progress":  "Machine progress",
     "metric.monitoringcenter.mek_formed":  "Multiblock formed",
     "screen.monitoringcenter.filter.tag":  "By tag",
-    "screen.monitoringcenter.filter.exact":  "This item only"
+    "screen.monitoringcenter.filter.exact":  "This item only",
+    "block.monitoringcenter.actuator":  "Actuator",
+    "screen.monitoringcenter.actuator":  "Actuator",
+    "screen.monitoringcenter.actuator.help":  "Turns redstone on from an alarm rule or a Sensor of the channel.",
+    "screen.monitoringcenter.label.actuator_source":  "Follow",
+    "screen.monitoringcenter.actuator_source.rule":  "Alarm rule",
+    "screen.monitoringcenter.actuator_source.sensor":  "Sensor",
+    "screen.monitoringcenter.label.actuator_output":  "Redstone on when",
+    "screen.monitoringcenter.actuator_output.met":  "It holds",
+    "screen.monitoringcenter.actuator_output.unmet":  "It does not hold",
+    "screen.monitoringcenter.label.rule":  "Rule",
+    "screen.monitoringcenter.choose.rule":  "Choose rule",
+    "screen.monitoringcenter.rule.unavailable":  "Rule %s (removed)",
+    "screen.monitoringcenter.actuator.rule.help":  "Uses a rule from the Central's Alarms tab. Silencing the alarm does not turn the Actuator off. Without power on the channel the Actuator stays off.",
+    "screen.monitoringcenter.actuator.no_rules":  "This channel has no alarm rules yet. Create one in the Central's Alarms tab, or follow a Sensor with its own limit."
 }

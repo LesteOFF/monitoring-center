@@ -1,6 +1,8 @@
 package dev.nostalgiacraft.monitor.compat.jade;
 
 import dev.nostalgiacraft.monitor.MonitoringCenter;
+import dev.nostalgiacraft.monitor.block.ActuatorBlock;
+import dev.nostalgiacraft.monitor.block.ActuatorBlockEntity;
 import dev.nostalgiacraft.monitor.block.CentralBlock;
 import dev.nostalgiacraft.monitor.block.CentralBlockEntity;
 import dev.nostalgiacraft.monitor.block.ChannelAccess;
@@ -42,6 +44,7 @@ public final class JadePlugin implements IWailaPlugin {
         registration.registerBlockDataProvider(new SensorReading(), SensorBlockEntity.class);
         registration.registerBlockDataProvider(new ChannelStatus(), CentralBlockEntity.class);
         registration.registerBlockDataProvider(new ChannelStatus(), ScreenBlockEntity.class);
+        registration.registerBlockDataProvider(new ChannelStatus(), ActuatorBlockEntity.class);
     }
 
     @Override
@@ -49,6 +52,7 @@ public final class JadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(new SensorReading(), SensorBlock.class);
         registration.registerBlockComponent(new ChannelStatus(), CentralBlock.class);
         registration.registerBlockComponent(new ChannelStatus(), ScreenBlock.class);
+        registration.registerBlockComponent(new ChannelStatus(), ActuatorBlock.class);
     }
 
     private static final class ChannelStatus implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {

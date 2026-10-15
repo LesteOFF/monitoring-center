@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "monitoringcenter:block/actuator"
+    },
+    "powered=true": {
+      "model": "monitoringcenter:block/actuator_on"
+    }
+  }
+}

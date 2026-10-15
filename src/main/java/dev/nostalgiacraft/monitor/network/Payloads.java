@@ -176,6 +176,28 @@ public final class Payloads {
         }
     }
 
+    public record OpenActuator(BlockPos pos, ChannelKey key, CompoundTag settings, CompoundTag rules) implements CustomPacketPayload {
+        public static final Type<OpenActuator> TYPE = typeOf("open_actuator");
+        public static final StreamCodec<ByteBuf, OpenActuator> CODEC = StreamCodec.composite(
+                BlockPos.STREAM_CODEC, OpenActuator::pos, ChannelKey.STREAM_CODEC, OpenActuator::key,
+                ByteBufCodecs.COMPOUND_TAG, OpenActuator::settings, ByteBufCodecs.COMPOUND_TAG, OpenActuator::rules, OpenActuator::new);
+
+        public Type<OpenActuator> type() {
+            return TYPE;
+        }
+    }
+
+    public record ConfigureActuator(BlockPos pos, String channel, CompoundTag settings) implements CustomPacketPayload {
+        public static final Type<ConfigureActuator> TYPE = typeOf("configure_actuator");
+        public static final StreamCodec<ByteBuf, ConfigureActuator> CODEC = StreamCodec.composite(
+                BlockPos.STREAM_CODEC, ConfigureActuator::pos, ByteBufCodecs.stringUtf8(ChannelKey.MAX_NAME_LENGTH), ConfigureActuator::channel,
+                ByteBufCodecs.COMPOUND_TAG, ConfigureActuator::settings, ConfigureActuator::new);
+
+        public Type<ConfigureActuator> type() {
+            return TYPE;
+        }
+    }
+
     public record OpenSensor(BlockPos pos, List<String> metrics) implements CustomPacketPayload {
         public static final Type<OpenSensor> TYPE = typeOf("open_sensor");
         public static final StreamCodec<ByteBuf, OpenSensor> CODEC = StreamCodec.composite(

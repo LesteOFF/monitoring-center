@@ -232,5 +232,19 @@
     "metric.monitoringcenter.mek_progress":  "Progresso da máquina",
     "metric.monitoringcenter.mek_formed":  "Multibloco formado",
     "screen.monitoringcenter.filter.tag":  "Por tag",
-    "screen.monitoringcenter.filter.exact":  "Só este item"
+    "screen.monitoringcenter.filter.exact":  "Só este item",
+    "block.monitoringcenter.actuator":  "Atuador",
+    "screen.monitoringcenter.actuator":  "Atuador",
+    "screen.monitoringcenter.actuator.help":  "Liga redstone a partir de uma regra de alarme ou de um Sensor do canal.",
+    "screen.monitoringcenter.label.actuator_source":  "Seguir",
+    "screen.monitoringcenter.actuator_source.rule":  "Regra de alarme",
+    "screen.monitoringcenter.actuator_source.sensor":  "Sensor",
+    "screen.monitoringcenter.label.actuator_output":  "Liga redstone quando",
+    "screen.monitoringcenter.actuator_output.met":  "Vale",
+    "screen.monitoringcenter.actuator_output.unmet":  "Não vale",
+    "screen.monitoringcenter.label.rule":  "Regra",
+    "screen.monitoringcenter.choose.rule":  "Escolher regra",
+    "screen.monitoringcenter.rule.unavailable":  "Regra %s (removida)",
+    "screen.monitoringcenter.actuator.rule.help":  "Usa uma regra da aba Alarmes da Central. Silenciar o alarme não desliga o Atuador. Sem energia no canal o Atuador fica desligado.",
+    "screen.monitoringcenter.actuator.no_rules":  "Este canal ainda não tem regras de alarme. Crie uma na aba Alarmes da Central ou siga um Sensor com limite próprio."
 }

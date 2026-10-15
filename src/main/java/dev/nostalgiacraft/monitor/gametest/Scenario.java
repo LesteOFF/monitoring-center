@@ -1,5 +1,6 @@
 package dev.nostalgiacraft.monitor.gametest;
 
+import dev.nostalgiacraft.monitor.block.ActuatorBlockEntity;
 import dev.nostalgiacraft.monitor.block.CentralBlockEntity;
 import dev.nostalgiacraft.monitor.block.SensorBlock;
 import dev.nostalgiacraft.monitor.block.SensorBlockEntity;
@@ -57,6 +58,15 @@ public final class Scenario {
             throw new GameTestAssertException("central did not join the channel");
         }
         return central;
+    }
+
+    public ActuatorBlockEntity actuator(BlockPos pos) {
+        helper.setBlock(pos, ModBlocks.ACTUATOR.get());
+        ActuatorBlockEntity actuator = (ActuatorBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
+        if (actuator == null || !actuator.joinChannel(channel)) {
+            throw new GameTestAssertException("actuator did not join the channel");
+        }
+        return actuator;
     }
 
     public boolean emitting(BlockPos pos) {

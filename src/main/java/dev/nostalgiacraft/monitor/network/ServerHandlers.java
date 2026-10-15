@@ -1,10 +1,12 @@
 package dev.nostalgiacraft.monitor.network;
 
+import dev.nostalgiacraft.monitor.block.ActuatorBlockEntity;
 import dev.nostalgiacraft.monitor.block.ChannelAccess;
 import dev.nostalgiacraft.monitor.block.CentralBlockEntity;
 import dev.nostalgiacraft.monitor.block.ChannelMember;
 import dev.nostalgiacraft.monitor.block.ScreenBlockEntity;
 import dev.nostalgiacraft.monitor.block.SensorBlockEntity;
+import dev.nostalgiacraft.monitor.data.ActuatorSettings;
 import dev.nostalgiacraft.monitor.panel.PanelConfig;
 import dev.nostalgiacraft.monitor.data.CentralConfig;
 import dev.nostalgiacraft.monitor.data.Channel;
@@ -85,6 +87,14 @@ final class ServerHandlers {
                 CentralConfig.apply(target, message.config());
                 network.setDirty();
             }
+        }
+    }
+
+    static void configureActuator(Payloads.ConfigureActuator message, IPayloadContext context) {
+        ServerPlayer player = (ServerPlayer) context.player();
+        if (editable(player, message.pos()) instanceof ActuatorBlockEntity actuator) {
+            rename(player, actuator, message.channel());
+            actuator.configure(ActuatorSettings.fromTag(message.settings()));
         }
     }
 

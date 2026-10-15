@@ -2,6 +2,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public final class GenerateBlockTextures {
     private static final Path TEXTURES = Path.of("src/main/resources/assets/monitoringcenter/textures/block");
@@ -19,6 +23,7 @@ public final class GenerateBlockTextures {
     private static final int AMBER_DIM = 0xFF8A5F00;
     private static final int GREEN = 0xFF6BFF95;
     private static final int RED = 0xFFFF3B30;
+    private static final int RED_DIM = 0xFF5A1410;
     private static final int NOISE = 3;
 
     private final BufferedImage image;
@@ -28,9 +33,18 @@ public final class GenerateBlockTextures {
     }
 
     public static void main(String[] args) throws IOException {
-        central().save("central");
-        sensor().save("sensor");
-        screen().save("screen");
+        Map<String, Supplier<GenerateBlockTextures>> textures = new LinkedHashMap<>();
+        textures.put("central", GenerateBlockTextures::central);
+        textures.put("sensor", GenerateBlockTextures::sensor);
+        textures.put("screen", GenerateBlockTextures::screen);
+        textures.put("actuator", () -> actuator(false));
+        textures.put("actuator_on", () -> actuator(true));
+        for (String name : args.length == 0 ? textures.keySet().toArray(String[]::new) : args) {
+            if (!textures.containsKey(name)) {
+                throw new IllegalArgumentException("unknown texture " + name + ", expected one of " + Arrays.toString(textures.keySet().toArray()));
+            }
+            textures.get(name).get().save(name);
+        }
     }
 
     private static GenerateBlockTextures central() {
@@ -51,6 +65,27 @@ public final class GenerateBlockTextures {
         art.raised(CELL + 5, 5, CELL + 11, 11);
         art.dot(CELL + 7, 7, AMBER_DIM);
         art.dot(CELL + 8, 8, AMBER_DIM);
+        art.casing(CELL, CELL, CELL, CELL);
+        return art;
+    }
+
+    private static GenerateBlockTextures actuator(boolean lit) {
+        int lamp = lit ? RED : RED_DIM;
+        GenerateBlockTextures art = new GenerateBlockTextures(2 * CELL);
+        art.framed(0, 0, CELL);
+        art.fill(4, 3, 12, 9, GLASS);
+        art.fill(6, 4, 10, 8, lamp);
+        art.dot(6, 4, lit ? FRAME_LIGHT : RED);
+        art.fill(6, 10, 10, 13, CASE_SHADE);
+        art.fill(7, lit ? 10 : 11, 9, lit ? 12 : 13, FRAME);
+        art.dot(4, 11, lit ? GREEN : CASE_LIGHT);
+        art.framed(0, CELL, CELL);
+        art.fill(1, CELL + 7, CELL - 1, CELL + 9, lamp);
+        art.fill(6, CELL + 5, 10, CELL + 11, CASE_SHADE);
+        art.fill(7, CELL + 6, 9, CELL + 10, lamp);
+        art.framed(CELL, 0, CELL);
+        art.raised(CELL + 5, 5, CELL + 11, 11);
+        art.fill(CELL + 7, 7, CELL + 9, 9, lamp);
         art.casing(CELL, CELL, CELL, CELL);
         return art;
     }
