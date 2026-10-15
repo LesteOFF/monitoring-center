@@ -162,7 +162,7 @@ public final class MonitorNetwork extends SavedData {
     }
 
     private void evaluate(ServerLevel level, long tick, long noticeCooldown) {
-        double hysteresis = ServerConfig.ALARM_HYSTERESIS_PERCENT.get() / PERCENT;
+        double hysteresis = hysteresis();
         for (Channel channel : channels.values()) {
             channel.sampleSums();
             if (channel.powered(tick)) {
@@ -172,6 +172,10 @@ public final class MonitorNetwork extends SavedData {
                 }
             }
         }
+    }
+
+    public static double hysteresis() {
+        return ServerConfig.ALARM_HYSTERESIS_PERCENT.get() / PERCENT;
     }
 
     public Inbox inbox() {

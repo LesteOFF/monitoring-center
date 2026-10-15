@@ -168,18 +168,13 @@ public final class CentralScreen extends WorkshopScreen {
         boolean missing = comparison == Comparison.MISSING;
         boolean historic = !missing && derived.ordinal() >= Kind.MINIMUM.ordinal();
         int column = historic ? small : (w - 6) / 2;
-        choice(text("label.sensor"), sensorName(sensorId), x, y, column, () -> {
-            List<ChoiceScreen.Entry<Integer>> entries = sensors.stream().map(sensor -> new ChoiceScreen.Entry<>(sensor.id(), Component.literal(sensor.name()))).toList();
-            choose(text("label.sensor"), entries, value -> sensorId = value);
-        });
+        choice(text("label.sensor"), sensorName(sensorId), x, y, column,
+                () -> choose(text("label.sensor"), ConditionFields.sensorChoices(sensors), value -> sensorId = value));
         choice(text("label.derived"), option("derived", derived), x + column + 6, y, column, () -> chooseEnum("derived", Kind.values(), value -> derived = value));
         if (historic) choice(text("label.period"), option("period", period), x + 2 * (small + 6), y, w - 2 * (small + 6),
                 () -> chooseEnum("period", Period.values(), value -> period = value));
         choice(text("alarm.when"), option("comparison", comparison), x, y + 40, small, () -> chooseEnum("comparison", Comparison.values(), value -> comparison = value));
-        ClientChannels.Sensor current = sensors.stream().filter(sensor -> sensor.id() == sensorId).findFirst().orElse(null);
-        String unit = ValueFormat.unit(derived, current == null ? "" : current.unit());
-        Component limitLabel = unit.isBlank() ? text("threshold") : text("threshold.unit", unit);
-        if (!missing) field(limitLabel, x + small + 6, y + 40, small, thresholdText, 32, value -> thresholdText = value);
+        if (!missing) field(ConditionFields.limitLabel(sensors, sensorId, derived), x + small + 6, y + 40, small, thresholdText, 32, value -> thresholdText = value);
         choice(text("label.severity"), option("severity", severity), x + 2 * (small + 6), y + 40, w - 2 * (small + 6),
                 () -> chooseEnum("severity", Severity.values(), value -> severity = value));
         int removeWidth = editingRule >= 0 ? 70 : 0;
@@ -211,11 +206,10 @@ public final class CentralScreen extends WorkshopScreen {
         Double limit = missing ? Double.valueOf(0) : GuiDrafts.finiteNumber(thresholdText);
         Double hold = holdText.isBlank() ? Double.valueOf(0) : GuiDrafts.finiteNumber(holdText);
         if (limit == null || hold == null) { status = text("error.number").getString(); return; }
-        ClientChannels.Sensor sensor = sensors.stream().filter(value -> value.id() == sensorId).findFirst().orElse(null);
-        if (sensor == null && editingRule < 0) { status = text("error.sensor").getString(); return; }
+        if (ConditionFields.find(sensors, sensorId).isEmpty() && editingRule < 0) { status = text("error.sensor").getString(); return; }
         String message = messageText.strip();
         if (message.isEmpty()) {
-            String reading = (ValueFormat.derived(derived, limit) + " " + ValueFormat.unit(derived, sensor == null ? "" : sensor.unit())).strip();
+            String reading = (ValueFormat.derived(derived, limit) + " " + ConditionFields.unit(sensors, sensorId, derived)).strip();
             message = sensorName(sensorId).getString() + (missing ? ": " + option("comparison", comparison).getString()
                     : (comparison == Comparison.BELOW ? " < " : " > ") + reading);
         }
@@ -227,8 +221,7 @@ public final class CentralScreen extends WorkshopScreen {
     }
 
     private Component sensorName(int id) {
-        return sensors.stream().filter(sensor -> sensor.id() == id).findFirst().<Component>map(sensor -> Component.literal(sensor.name()))
-                .orElse(id == 0 ? text("choose.sensor") : text("sensor.unavailable", id));
+        return ConditionFields.sensorName(sensors, id);
     }
 
     private static Component metricName(String id) { return Component.translatable("metric.monitoringcenter." + id); }

@@ -102,6 +102,11 @@ public final class AlarmBoard {
         return strength;
     }
 
+    public boolean active(int ruleId) {
+        AlarmState state = states.get(ruleId);
+        return state != null && state.active();
+    }
+
     public int activeCount() {
         int active = 0;
         for (AlarmRule rule : rules) {
@@ -161,7 +166,7 @@ public final class AlarmBoard {
     }
 
     private void evaluate(AlarmRule rule, SensorEntry entry, long tick, double hysteresis, long cooldownTicks, List<Notice> notices) {
-        double value = DerivedMetric.compute(rule.observed(), rule.period(), entry.series(), entry.value(), entry.capacity());
+        double value = observed(rule, entry);
         AlarmState state = states.get(rule.id());
         AlarmState.Transition transition = state.update(rule, value, hysteresis);
         if (state.active() && !state.noticed() && state.takeNotice(tick, cooldownTicks)) {
@@ -180,6 +185,10 @@ public final class AlarmBoard {
         levels.merge(rule.sensorId(), level, Math::max);
     }
 
+    public static double observed(AlarmRule rule, SensorEntry entry) {
+        return DerivedMetric.compute(rule.observed(), rule.period(), entry.series(), entry.value(), entry.capacity());
+    }
+
     private void remember(Line line) {
         resolved.addFirst(line);
         while (resolved.size() > RESOLVED_LINES) {
@@ -191,21 +200,25 @@ public final class AlarmBoard {
         CompoundTag tag = new CompoundTag();
         ListTag list = new ListTag();
         for (AlarmRule rule : rules) {
-            CompoundTag ruleTag = new CompoundTag();
-            ruleTag.putInt(ID, rule.id());
-            ruleTag.putInt(SENSOR, rule.sensorId());
-            ruleTag.putString(DERIVED, rule.derived().name());
-            ruleTag.putString(COMPARISON, rule.comparison().name());
-            ruleTag.putDouble(THRESHOLD, rule.threshold());
-            ruleTag.putString(SEVERITY, rule.severity().name());
-            ruleTag.putString(MESSAGE, rule.message());
-            ruleTag.putInt(HOLD, rule.holdSeconds());
-            ruleTag.putString(PERIOD, rule.period().name());
-            list.add(ruleTag);
+            list.add(ruleTag(rule));
         }
         tag.put(RULES, list);
         tag.putString(REDSTONE, redstone == null ? REDSTONE_OFF : redstone.name());
         return tag;
+    }
+
+    public static CompoundTag ruleTag(AlarmRule rule) {
+        CompoundTag ruleTag = new CompoundTag();
+        ruleTag.putInt(ID, rule.id());
+        ruleTag.putInt(SENSOR, rule.sensorId());
+        ruleTag.putString(DERIVED, rule.derived().name());
+        ruleTag.putString(COMPARISON, rule.comparison().name());
+        ruleTag.putDouble(THRESHOLD, rule.threshold());
+        ruleTag.putString(SEVERITY, rule.severity().name());
+        ruleTag.putString(MESSAGE, rule.message());
+        ruleTag.putInt(HOLD, rule.holdSeconds());
+        ruleTag.putString(PERIOD, rule.period().name());
+        return ruleTag;
     }
 
     public CompoundTag toTag() {
@@ -247,7 +260,7 @@ public final class AlarmBoard {
         nextId = Math.max(1, tag.getInt(NEXT_ID));
         ListTag list = tag.getList(RULES, Tag.TAG_COMPOUND);
         for (int index = 0; index < Math.min(list.size(), MAX_RULES); index++) {
-            AlarmRule rule = rule(list.getCompound(index));
+            AlarmRule rule = ruleOf(list.getCompound(index));
             AlarmState state = new AlarmState();
             state.restore(list.getCompound(index).getBoolean(ACTIVE), list.getCompound(index).getBoolean(ACKNOWLEDGED));
             rules.add(rule);
@@ -262,7 +275,7 @@ public final class AlarmBoard {
         List<AlarmRule> parsed = new ArrayList<>();
         ListTag list = tag.getList(RULES, Tag.TAG_COMPOUND);
         for (int index = 0; index < Math.min(list.size(), MAX_RULES); index++) {
-            parsed.add(rule(list.getCompound(index)));
+            parsed.add(ruleOf(list.getCompound(index)));
         }
         return parsed;
     }
@@ -273,7 +286,7 @@ public final class AlarmBoard {
         return name.isEmpty() || name.equals(REDSTONE_OFF) ? null : PanelConfig.constant(Severity.class, name, Severity.CRITICAL);
     }
 
-    private static AlarmRule rule(CompoundTag tag) {
+    public static AlarmRule ruleOf(CompoundTag tag) {
         double threshold = tag.getDouble(THRESHOLD);
         return new AlarmRule(tag.getInt(ID), tag.getInt(SENSOR), PanelConfig.constant(Kind.class, tag.getString(DERIVED), Kind.VALUE),
                 PanelConfig.constant(Comparison.class, tag.getString(COMPARISON), Comparison.BELOW), Double.isFinite(threshold) ? threshold : 0,
