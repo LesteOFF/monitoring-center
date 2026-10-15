@@ -2,7 +2,7 @@
 
 Mod NeoForge para **Minecraft Java 1.21.1**. Sensores leem o que está ao lado deles (energia, itens, fluidos, redes do AE2, máquinas do Mekanism, eixos do Create…). Uma Central junta as leituras de um canal. As Telas mostram tudo como lista, cartões, gráfico ou medidores, e os alarmes avisam o time quando algo sai do normal.
 
-- Versão atual: **2.1.0**
+- Versão atual: **2.2.0**
 - Addon: **Auditor de Fábrica** (`../factory-auditor`), que exige a Central `[2.1.0,3)`.
 - Idiomas: inglês (`en_us`) e português (`pt_br`).
 
@@ -24,6 +24,7 @@ Instale o jar em `mods/` no cliente **e** no servidor. Os dois precisam do mesmo
 | Central de Monitoramento | `central` | Guarda o histórico do canal, roda as somas e os alarmes. Gasta 40 FE/t, com bateria de 5 s. |
 | Tela | `screen` | Mostra o canal. Telas lado a lado formam um painel único de até 12×8, com moldura conectada. |
 | Acoplador Cinético | `kinetic_coupler` | Só com o Create: alimenta a Central por um eixo a 32 RPM ou mais, no lugar de FE. |
+| Atuador | `actuator` | Emite redstone (força 15, para todos os lados) a partir de uma regra de alarme ou de um Sensor do canal. Acende quando está ligado. |
 | Chave de Canal | `channel_key` | Agachar e clicar copia o canal de um bloco; clicar aplica em outro. |
 
 Quebrar uma Tela guarda o canal e a configuração no item.
@@ -59,6 +60,16 @@ Cada linha pode mostrar o valor, a porcentagem, a taxa (por tick, segundo ou min
 - Cada regra tem um tempo de espera (0 a 3600 s) e um período para as regras de menor, maior e média.
 - A Central emite redstone com o alarme, e um comparador lê 5, 10 ou 15 conforme a severidade.
 - Agachar e clicar na Central silencia os alarmes ativos.
+
+## Atuador
+
+O Atuador age sozinho a partir do canal, em qualquer lugar do mundo; não precisa ficar ao lado da Central.
+
+- **Seguir uma regra de alarme:** escolha uma regra criada na aba Alarmes da Central. Silenciar o alarme não desliga o Atuador.
+- **Seguir um Sensor:** escolha um Sensor, a leitura (valor, porcentagem, taxa…), abaixo ou acima de um limite próprio e uma espera em segundos. Funciona mesmo sem nenhuma regra no canal, com a mesma margem que evita liga-desliga dos alarmes.
+- **Liga redstone quando:** "Vale" (liga quando a condição acontece) ou "Não vale" (saída invertida).
+- Sem energia no canal o Atuador fica desligado. Ele confere a condição uma vez por segundo.
+- Exemplo: "energia abaixo de 20%" ligando um gerador reserva, ou "baú acima de 95%" travando um funil.
 - Avisos no chat para o dono ou para o time (FTB Teams). Quem estiver offline recebe na próxima entrada (até 50 recados).
 
 ## Integrações
@@ -85,7 +96,7 @@ Cliente: `performanceMode` (troca os gráficos de linha por barras e desliga o p
 ## Compilar e testar
 
 ```bash
-./gradlew build                  # build/libs/monitoringcenter-2.1.0.jar
+./gradlew build                  # build/libs/monitoringcenter-2.2.0.jar
 ./gradlew test                   # testes JUnit
 ./gradlew runGameTestServer      # gametests num servidor real
 ./gradlew runPackGameTestServer  # gametests com os mods do pack carregados

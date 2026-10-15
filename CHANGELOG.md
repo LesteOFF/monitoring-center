@@ -1,5 +1,11 @@
 # CHANGELOG — Central de Monitoramento
 
+## 2.2.0
+- Bloco novo **Atuador** (`actuator`): emite redstone a partir de uma regra de alarme do canal ou de um Sensor com limite, leitura, período e espera próprios; saída normal ou invertida; acende quando ligado. Fica desligado sem energia no canal e não é afetado por silenciar o alarme.
+- GUI do Atuador no mesmo estilo das outras; partes do editor de regras (nome do Sensor, rótulo do limite, lista de Sensores) passaram a ser compartilhadas com a Central.
+- Protocolo de rede na versão 3: cliente e servidor precisam do mesmo jar.
+- Gametests novos: regra (inclusive após silenciar), saída invertida e Sensor com limite próprio sem regras no canal.
+
 ## 2.1.0
 - API aberta para o addon Auditor de Fábrica: `WorkshopScreen` virou `public abstract` (construtor e cores `INK`/`MUTED`/`ACCENT` protegidos) e `Scenario` ficou público. O Auditor exige `[2.1.0,3)`, então uma Central antiga é recusada na carga com mensagem clara.
 
